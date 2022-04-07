@@ -29,6 +29,12 @@ h1 {
 
 .draw-ui {
   display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.slider input{
+  -webkit-appearance: slider-vertical;
+  height: 100%;
 }
 
 .color-pad {
@@ -50,42 +56,42 @@ h1 {
   color: ora;
 }
 
-#black {
+.black {
   background: black;
 }
 
-#gray {
+.gray {
   background: gray;
 }
 
-#brown {
+.brown {
   background: brown;
 }
 
-#orange {
+.orange {
   background: orange;
 }
 
-#yellow {
+.yellow {
   background: yellow;
 }
 
-#green {
+.green {
   background: green;
 }
 
-#blue {
+.blue {
   background: blue;
 }
 
-#purple {
+.purple {
   background: purple;
 }
 
-#pink {
+.pink {
   background: pink;
 }
 
-#white {
+.white {
   background: white;
 }

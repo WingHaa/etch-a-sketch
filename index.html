@@ -15,21 +15,24 @@
   <h1>Etch A Sketch</h1>
   <div class="draw-pad">
     <div class="draw-ui">
+      <div class="slider">
+        <input type="range" class="grid-size name="grid-size" min="0" max="100" value="16">
+        <label for="grid-size">Grid size</label>
+      </div>
       <div class="color-pad">
-        <div id="black"></div>
-        <div id="gray"></div>
-        <div id="brown"></div>
-        <div id="orange"></div>
-        <div id="yellow"></div>
-        <div id="green"></div>
-        <div id="blue"></div>
-        <div id="purple"></div>
-        <div id="pink"></div>
-        <div id="white"></div>
+        <div class="black"></div>
+        <div class="gray"></div>
+        <div class="brown"></div>
+        <div class="orange"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+        <div class="purple"></div>
+        <div class="pink"></div>
+        <div class="white"></div>
       </div>
     </div>
     <div class="container"></div>
   </div>
-
 </body>
 </html>
