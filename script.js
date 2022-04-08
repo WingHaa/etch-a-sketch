@@ -1,17 +1,24 @@
-const container = document.querySelector('.container');
-const colorPicker = document.querySelectorAll('.color-pad');
-let mouseDown = false; 
-createPad(16, 16); //make default grid 1st so we can target them later
-const grid = document.querySelectorAll('.grid-item');
-
-function createPad (cols, rows) {
+function createPad (cols) {
+  const container = document.querySelector('.container');
   container.style.setProperty('--grid-columns', cols);
-  container.style.setProperty('--grid-rows', rows);
-  for (i = 0; i < (cols * rows); i++) {
+  container.style.setProperty('--grid-rows', cols);
+  for (i = 0; i < (cols * cols); i++) {
     let grid = document.createElement('div');
-    container.appendChild(grid).className = 'grid-item';
+    container.appendChild(grid).id = 'grid-item';
   }
 }
+
+document.querySelector('.grid-size').oninput = function() {
+  document.querySelectorAll('#grid-item').forEach((div) => {
+    div.remove();
+  });
+  document.querySelector('.slider-value').textContent = 
+    `Grid Size: ${this.value} x ${this.value}`;
+  createPad(this.value);
+  paint();
+}
+
+const colorPicker = document.querySelectorAll('.color-pad');
 
 colorPicker.forEach(element => {
   element.addEventListener('click', getColor)
@@ -23,28 +30,37 @@ function getColor (e) {
   color = e.target.className;
 }
 
-grid.forEach(item => {
-  item.addEventListener('mousedown', () => {
-    mouseDown = true
-  })
-});
+// function getColor() {
+//   const colorPicker = document.querySelectorAll('.color-pad');
+//   colorPicker.forEach(element => {
+//     element.addEventListener('click', (e) => paint(e.target.className))
+//     console.log(e.target.className)
+//   });
+// }
 
-grid.forEach(item => {
-  item.addEventListener('mouseup', () => {
-    mouseDown = false
-  })
-});
+function paint () {
+  const grid = document.querySelectorAll('#grid-item');
+  let mouseDown = false; 
 
-grid.forEach(item => {
-  item.addEventListener('mousemove', paint)
-});
+  grid.forEach(item => {
+    item.addEventListener('mousedown', () => {
+      mouseDown = true
+    })
+  });
 
-function paint(e) {
-  if (mouseDown) {
-    e.target.setAttribute('class', color);
-  }
+  grid.forEach(item => {
+    item.addEventListener('mouseup', () => {
+      mouseDown = false
+    })
+  });
+
+  grid.forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      if (mouseDown) e.target.setAttribute('class', color);
+    })
+  });
 }
 
-document.querySelector('.grid-size').oninput = function() {
-  document.querySelector('.')
-}
+createPad(16); //draw default pad
+paint(); //start event listener for paint logic
+
