@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Etch A Sketch</title>
   <link rel="stylesheet" href="./style.css">
   <script type="text/javascript" src="./script.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,26 +13,21 @@
 </head>
 <body>
   <h1>Etch A Sketch</h1>
-  <div class="draw-pad">
-    <div class="draw-ui">
-      <div class="slider">
-        <input type="range" class="grid-size" name="grid-size" min="1" max="50" value="16">
-        <div class="slider-value">Grid Size: 16 x 16</div>
-      </div>
-      <div class="color-pad">
-        <div class="black"></div>
-        <div class="gray"></div>
-        <div class="brown"></div>
-        <div class="orange"></div>
-        <div class="yellow"></div>
-        <div class="green"></div>
-        <div class="blue"></div>
-        <div class="purple"></div>
-        <div class="pink"></div>
-        <div class="white"></div>
-      </div>
+  <div class="interface">
+    <div class="slider">
+      <div class="slider-value">Grid Size:<br> 16 x 16</div>
+      <input type="range" class="grid-size" name="grid-size" min="1" max="50" value="16">
     </div>
-    <div class="container"></div>
+    <div class="draw-pad">
+      <div class="draw-ui">
+        <div class="color-pad">
+          <input type="color" class="color-picker">
+        </div>
+        <button class="rainbow">Rainbow</button>
+        <button class="clean">Clear</button>
+      </div>
+      <div class="container"></div>
+    </div>
   </div>
 </body>
 </html>
