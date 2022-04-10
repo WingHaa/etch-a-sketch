@@ -13,6 +13,10 @@ function makeRainbowColor() {
   let g = Math.floor(Math.random() * 256);
   let b = Math.floor(Math.random() * 256);
   let a = 1;
+//reroll to get less whitey color
+  if ((Math.abs(r-g) < 20) && 
+    (Math.abs(r-b) < 20) && 
+    (Math.abs(b-g) < 20)) makeRainbowColor();
 //convert to gray scale then sum to get luminance
   let luminance = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
 //luminance value closer to 0 mean color more on black spectrum
@@ -20,31 +24,9 @@ function makeRainbowColor() {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-function paint () {
-  const grid = document.querySelectorAll('#grid-item');
-  let mouseDown = false; 
-
-  grid.forEach(item => {
-    item.addEventListener('mousedown', () => {
-      mouseDown = true
-    })
-  });
-
-  grid.forEach(item => {
-    item.addEventListener('mouseup', () => {
-      mouseDown = false
-    })
-  });
-
-  grid.forEach(item => {
-    item.addEventListener('mouseenter', (e) => { 
-     color = colorPicker.value;
-      if (mouseDown) e.target.style.setProperty('--bg-color', color);
-    })
-  });
-}
-
-function paintRainbow () {
+function paint (mode) {
+  //store what mode is in use to pass to remakePad function
+  document.querySelector('.grid-size').mode = mode;
   const grid = document.querySelectorAll('#grid-item');
   let mouseDown = false;
 
@@ -61,28 +43,46 @@ function paintRainbow () {
   });
 
   grid.forEach(item => {
-    item.addEventListener('mouseenter', (e) => {
-      color = makeRainbowColor();
-      if (mouseDown) {
-        e.target.style.setProperty('--bg-color', color);
+    item.addEventListener('mouseenter', (e) => { 
+      switch(mode) {
+        case 'color':
+          color = colorPicker.value;
+          break;
+        case 'rainbow':
+          color = makeRainbowColor();
+          break;
+        default:
+          // code block
       }
+      if (mouseDown) e.target.style.setProperty('--bg-color', color);
     })
   });
 }
 
-document.querySelector('.grid-size').oninput = function() {
+function remakePad (event) {
   document.querySelectorAll('#grid-item').forEach((div) => div.remove());
   document.querySelector('.slider-value').innerHTML = 
     `Grid Size:<br> ${this.value} x ${this.value}`;
   makePad(this.value);
+  paint(event.currentTarget.mode);
 }
+
+function cleanPad () {
+  document.querySelectorAll('#grid-item').forEach((div) => 
+    div.style.removeProperty('--bg-color'));
+}
+
+document.querySelector('.grid-size').addEventListener('input', remakePad);
 
 const colorPicker = document.querySelector('.color-picker');
 let color = colorPicker.value;
-colorPicker.addEventListener('input', paint)
+colorPicker.addEventListener('input', () => paint('color'));
 
 const lgbtButton = document.querySelector('.rainbow');
-lgbtButton.addEventListener('click', paintRainbow);
+lgbtButton.addEventListener('click', () => paint('rainbow'));
+
+const cleanButton = document.querySelector('.clean');
+cleanButton.addEventListener('click', cleanPad);
 
 makePad(16); //draw default pad
 paint(); //start event listener for default color
