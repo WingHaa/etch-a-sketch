@@ -12,22 +12,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Etch A Sketch</h1>
-  <div class="interface">
-    <div class="slider">
+  <div class="header"> 
+    <h1>Etch A Sketch</h1>
+  </div>
+  <div class="main">
+    <div class="interface">
       <div class="slider-value">Grid Size:<br> 16 x 16</div>
-      <input type="range" class="grid-size" name="grid-size" min="1" max="50" value="16">
-    </div>
-    <div class="draw-pad">
+      <div class="range-slider">
+        <input type="range" class="grid-size" name="grid-size" min="1" max="64" value="16">
+      </div>
       <div class="draw-ui">
         <div class="color-pad">
-          <input type="color" class="color-picker">
+          <input type="color" id="color-picker" class="color-picker">
+          <label for="color-picker">Color Picker</label>
         </div>
         <button class="rainbow">Rainbow</button>
+        <button class="eraser">Eraser</button>
         <button class="clean">Clear</button>
       </div>
       <div class="container"></div>
     </div>
   </div>
+  <div class="footer"></div>
 </body>
 </html>

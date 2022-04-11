@@ -51,8 +51,11 @@ function paint (mode) {
         case 'rainbow':
           color = makeRainbowColor();
           break;
+        case 'erase':
+          color = '#ffffff';
+          break;  
         default:
-          // code block
+          color = colorPicker.value;
       }
       if (mouseDown) e.target.style.setProperty('--bg-color', color);
     })
@@ -72,14 +75,19 @@ function cleanPad () {
     div.style.removeProperty('--bg-color'));
 }
 
+document.querySelector('.footer').innerHTML = 
+  `<p>Copyright © ${new Date().getFullYear()} WingHaa. All Rights Reserved</p>`;
+
 document.querySelector('.grid-size').addEventListener('input', remakePad);
 
 const colorPicker = document.querySelector('.color-picker');
-let color = colorPicker.value;
-colorPicker.addEventListener('input', () => paint('color'));
+colorPicker.addEventListener('change', () => paint('color'));
 
 const lgbtButton = document.querySelector('.rainbow');
 lgbtButton.addEventListener('click', () => paint('rainbow'));
+
+const eraseButton = document.querySelector('.eraser');
+eraseButton.addEventListener('click', () => paint('erase'));
 
 const cleanButton = document.querySelector('.clean');
 cleanButton.addEventListener('click', cleanPad);
